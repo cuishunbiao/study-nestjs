@@ -7,24 +7,18 @@ import { ContactModule } from './views/contact/contact.module';
 import { FormsModule } from './views/forms/forms.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { databaseConfig } from './config/database.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
+      load: [databaseConfig], // 加载数据库配置
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USER'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('DB_SYNCHRONIZE') === 'true',
+        ...configService.get('database'),
       }),
       inject: [ConfigService],
     }),

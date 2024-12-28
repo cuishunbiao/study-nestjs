@@ -16,14 +16,6 @@ export class CompanyService {
       where: { id: 1 }, // 假设只有一条公司信息记录
     });
 
-    if (!info) {
-      // 如果不存在，创建一个默认的
-      const defaultInfo = this.companyInfoRepository.create({
-        content: '请编辑公司介绍内容',
-      });
-      return this.companyInfoRepository.save(defaultInfo);
-    }
-
     return info;
   }
 

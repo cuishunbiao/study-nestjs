@@ -17,7 +17,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "check-entities-changed": "git diff --cached --name-only | grep -E '.*entity.ts$'",
+    "generate-migration": "typeorm-ts-node-commonjs migration:generate ./migrations/auto-migration -d ./src/config/database.config.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run check-entities-changed && npm run generate-migration"
+    }
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

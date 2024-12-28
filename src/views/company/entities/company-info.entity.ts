@@ -5,12 +5,15 @@ export class CompanyInfo {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text')
-  content: string;
+  @Column('text', { comment: '关于我们页面的富文本内容' })
+  about: string;
+
+  @Column('text', { comment: '联系我们页面的富文本内容' })
+  contact: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_time: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_time: Date;
 } 

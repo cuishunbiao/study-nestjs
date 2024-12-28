@@ -1,0 +1,37 @@
+name: Database Migration Workflow
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  database-migration:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+      
+      # 开发环境测试
+      - name: Run migrations in dev
+        if: github.event_name == 'pull_request'
+        run: |
+          npm run typeorm:run-migration -- -c development
+          
+      # 生产环境部署
+      - name: Deploy to production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          # 1. 备份数据库
+          # 2. 运行迁移
+          npm run typeorm:run-migration -- -c production
+          # 3. 如果失败则回滚 
