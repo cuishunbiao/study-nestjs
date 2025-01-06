@@ -1,17 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { DateFormat } from '../../../common/decorators/date-format.decorator';
 
 @Entity()
 export class CompanyInfo {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text', { comment: '关于我们页面的富文本内容' })
+  @Column('text')
   about: string;
 
-  @Column('text', { comment: '联系我们页面的富文本内容' })
+  @Column('text')
   contact: string;
 
   @CreateDateColumn()
+  @DateFormat('YYYY-MM-DD')
   created_time: Date;
 
   @UpdateDateColumn()

@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
+import {TransformInterceptor} from './common/interceptors/transform.interceptors';
 
 async function bootstrap() {
   try {
@@ -48,6 +49,8 @@ async function bootstrap() {
       }),
     });
 
+    // 全局注入拦截器
+    app.useGlobalInterceptors(new TransformInterceptor())
     // 获取数据源但不重新初始化
     const dataSource = app.get(DataSource);
 

@@ -19,9 +19,9 @@ export class CompanyService {
     return info;
   }
 
-  async updateCompanyInfo(updateCompanyInfoDto: UpdateCompanyInfoDto): Promise<CompanyInfo> {
-    const info = await this.getCompanyInfo();
-    info.content = updateCompanyInfoDto.content;
-    return this.companyInfoRepository.save(info);
-  }
+  // async updateCompanyInfo(updateCompanyInfoDto: UpdateCompanyInfoDto): Promise<CompanyInfo> {
+  //   const info = await this.getCompanyInfo();
+  //   info.content = updateCompanyInfoDto.content;
+  //   return this.companyInfoRepository.save(info);
+  // }
 } 

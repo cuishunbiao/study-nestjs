@@ -14,6 +14,7 @@ export class CompanyController {
 
   @Post('setInfo')
   updateCompanyInfo(@Body() updateCompanyInfoDto: UpdateCompanyInfoDto): Promise<CompanyInfo> {
-    return this.companyService.updateCompanyInfo(updateCompanyInfoDto);
+    // return this.companyService.updateCompanyInfo(updateCompanyInfoDto);
+    return null;
   }
 } 
